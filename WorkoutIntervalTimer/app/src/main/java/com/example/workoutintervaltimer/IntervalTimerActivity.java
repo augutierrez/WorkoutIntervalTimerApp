@@ -3,6 +3,7 @@ package com.example.workoutintervaltimer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,7 +19,6 @@ public class IntervalTimerActivity extends AppCompatActivity {
     private int seconds;
     private boolean isRunning;
     private ImageButton pauseButton;
-    private ImageButton resumeButton;
     private TextView timeTextView;
     private TextView cycles;
     private int numCycles;
@@ -28,7 +28,6 @@ public class IntervalTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interval_timer_activity);
         pauseButton = (ImageButton) findViewById(R.id.interval_pause_button);
-        resumeButton = (ImageButton) findViewById(R.id.interval_play_button);
         TextView textView = (TextView) findViewById(R.id.interval_timer_interval_text);
         String message = getIntent().getStringExtra("interval");
         textView.setText("Intervals of : " + message);
@@ -38,8 +37,16 @@ public class IntervalTimerActivity extends AppCompatActivity {
         cycles.setText("Cycles : " + numCycles);
 
         interval = Integer.parseInt(message);
-        seconds = 0;
-        isRunning = true;
+
+        if(savedInstanceState!=null){
+            seconds = savedInstanceState.getInt("seconds");
+            isRunning = savedInstanceState.getBoolean("isRunning");
+        }
+        else {
+            seconds = 0;
+            isRunning = true;
+        }
+
         runTimer();
     }
 
@@ -50,7 +57,7 @@ public class IntervalTimerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(isRunning) {
-                    int hours = seconds / 3600;
+                    int hours = seconds/3600;
                     int minutes = (seconds % 3600) / 60;
                     int secs = (seconds%60);
                     String time = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, secs);
@@ -74,18 +81,19 @@ public class IntervalTimerActivity extends AppCompatActivity {
     }
 
     public void myPause(View view){
-        isRunning = false;
-        pauseButton.setVisibility(View.GONE);
-        resumeButton.setVisibility(View.VISIBLE);
-        //show resume button
-
+        if(isRunning){
+            isRunning = false;
+            pauseButton.setImageResource(R.drawable.play2);
+        }
+        else{
+            isRunning = true;
+            pauseButton.setImageResource(R.drawable.pause2);
+        }
     }
 
-    public void myResume(View view){
-        isRunning = true;
-        pauseButton.setVisibility(View.VISIBLE);
-        resumeButton.setVisibility(View.GONE);
-        //show pause button
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        outState.putInt("seconds", seconds);
+        outState.putBoolean("isRunning", isRunning);
     }
-
 }
