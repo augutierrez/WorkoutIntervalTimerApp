@@ -1,7 +1,7 @@
 # WorkoutIntervalTimerApp
 
 ## Summary:
-#### This is an app that counts timed intervals (depending on user's time preference).  <br /> It allows you to select how long you want the intervals to be, and everytime it hits the selected time,<br />it notifies you and adds on to the number of cycles elapsed.  <br />This app was made with the purpose to aid physical training with time.
+#### This is an app that counts timed intervals (depending on user's time preference).  <br /> It allows you to select how long you want the intervals to be, and everytime it hits the selected time,<br />it notifies you and adds on to the number of cycles elapsed.  <br />This app was made with the purpose to aid physical training with time. I thought about this project because I needed something like this for my workouts!
 
 ## First Event
 <h2 align="center">This is the welcome page, go ahead and click start.</h2>
