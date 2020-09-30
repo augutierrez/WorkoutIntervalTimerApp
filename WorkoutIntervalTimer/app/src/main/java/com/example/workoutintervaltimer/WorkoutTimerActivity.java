@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorkoutTimerActivity extends AppCompatActivity {
     EditText editText;
+    Spinner spinner;
 
     String lastInterval;
     Boolean savedStateAvailable = false;
@@ -22,6 +28,16 @@ public class WorkoutTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workout_timer_layout);
         editText = (EditText) findViewById(R.id.workout_timer_edit_text);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        List<String> selections = new ArrayList<>();
+        selections.add("seconds");
+        selections.add("minutes");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_list, selections);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_list);
+        spinner.setAdapter(dataAdapter);
+
         if(savedStateAvailable){
             editText.setText(lastInterval);
         }
@@ -32,9 +48,12 @@ public class WorkoutTimerActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String interval = editText.getText().toString();
+                int interval = Integer.parseInt(editText.getText().toString());
+                if(spinner.getSelectedItem().equals("minutes")){
+                    interval = interval * 60;
+                }
                 Intent intent = new Intent(WorkoutTimerActivity.this, IntervalTimerActivity.class);
-                intent.putExtra("interval", interval);
+                intent.putExtra("interval", String.valueOf(interval));
                 startActivity(intent);
             }
         });

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WorkoutIntervalTimer</string>
+    <string name="intervals_of"> Intervals of : </string>
+    <string name="interval_timer_cycles"> Cycles : </string>
 </resources>
