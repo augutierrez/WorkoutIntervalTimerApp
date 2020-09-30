@@ -5,25 +5,26 @@ It allows you to select how long you want the intervals to be, and everytime it 
 it notifies you and adds on to the number of cycles elapsed.  
 This app was made with the purpose to aid physical training with time.
 
-First Event:
-This is the welcome page, go ahead and click start.
+<h1> <strong>First Event:</strong> </h1>
+<p align="center">This is the welcome page, go ahead and click start.</p>
+
 
 <p align="center">
   <img src="images/pic1.jpg" height=500>
 </p>
 
-Second Event:
-This is the intervals page.  Select desired intervals in seconds or minutes.
+<h1> <strong>Second Event:</strong> </h1>
+<p align="center">This is the intervals page.  Select desired intervals in seconds or minutes.<p>
 
 <p align="center">
   <img src="images/pic2.jpg" height=500>
 </p>
 
-Final Event:
-Now you have a timer set up that will notify you everytime the interval occurs and will keep track of the number of cycles.
+<h1> <strong>Final Event:</strong> </h1>
+<p align="center">Now you have a timer set up that will notify you everytime the interval occurs and will keep track of the number of cycles.</p>
 
 <p align="center">
   <img src="images/pic3.jpg" height=500>
 </p>
 
-Hit the back button to create a new timer!
+<p align="center">Hit the back button to create a new timer!<p>
