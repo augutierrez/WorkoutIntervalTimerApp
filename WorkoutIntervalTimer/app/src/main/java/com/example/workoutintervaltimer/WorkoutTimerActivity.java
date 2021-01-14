@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutTimerActivity extends AppCompatActivity {
+
     EditText editText;
     Spinner spinner;
 
@@ -44,6 +45,7 @@ public class WorkoutTimerActivity extends AppCompatActivity {
         else{
             editText.setText("30");
         }
+        //TODO add saving timer options with names
         Button button = (Button) findViewById(R.id.go_workout_timer_activity_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

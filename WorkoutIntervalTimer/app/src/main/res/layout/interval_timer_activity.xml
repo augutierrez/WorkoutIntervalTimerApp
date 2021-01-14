@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,18 +59,32 @@
 
 
         <ImageButton
-            android:onClick="myPause"
             android:id="@+id/interval_pause_button"
-            android:src="@drawable/pause2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/pause3"
+            android:onClick="myPause"
+            android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.608"
+            app:layout_constraintStart_toEndOf="@id/interval_sound_button"
+            app:layout_constraintTop_toBottomOf="@+id/interval_timer_time_text" />
+
+        <ImageButton
+            android:id="@+id/interval_sound_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/sound2"
+            android:onClick="mySound"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/interval_pause_button"
+            app:layout_constraintHorizontal_bias="0.186"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/interval_timer_time_text"
-            android:background="@color/red"
-            android:padding="15dp"
-            />
+            app:layout_constraintVertical_bias="0.523" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

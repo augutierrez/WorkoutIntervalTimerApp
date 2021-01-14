@@ -1,6 +1,8 @@
 package com.example.workoutintervaltimer;
 
+import android.app.Service;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -14,12 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
 
+
 public class IntervalTimerActivity extends AppCompatActivity {
+    static final String CYCLE = "cycle";
+    static final String PAUSE = "pause";
     private boolean saved;
     private int interval;
     private int seconds;
     private boolean isRunning;
+    private boolean isSound;
     private ImageButton pauseButton;
+    private ImageButton soundButton;
     private TextView timeTextView;
     private TextView cycles;
     private int numCycles;
@@ -29,6 +36,7 @@ public class IntervalTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interval_timer_activity);
         pauseButton = (ImageButton) findViewById(R.id.interval_pause_button);
+        soundButton = (ImageButton) findViewById(R.id.interval_sound_button);
         TextView textView = (TextView) findViewById(R.id.interval_timer_interval_text);
         String message = getIntent().getStringExtra("interval");
         textView.setText(getString(R.string.intervals_of) + message);
@@ -43,12 +51,14 @@ public class IntervalTimerActivity extends AppCompatActivity {
             numCycles = savedInstanceState.getInt("cycles");
             seconds = savedInstanceState.getInt("seconds");
             isRunning = savedInstanceState.getBoolean("isRunning");
+            isSound = savedInstanceState.getBoolean("isSound");
         }
         else {
             Log.i("IntervalTimer", "SavedInstance was null");
             numCycles = 0;
             seconds = 0;
             isRunning = true;
+            isSound = true;
         }
         setTime();
         cycles.setText(getString(R.string.interval_timer_cycles) + numCycles);
@@ -85,19 +95,42 @@ public class IntervalTimerActivity extends AppCompatActivity {
     public void cycleReached(){
         numCycles++;
         cycles.setText("Cycles : " + numCycles);
-
-        startService(new Intent(this, SoundService.class));
+        if(isSound){
+            Intent intent = new Intent(this, SoundService.class);
+            intent.setAction(CYCLE);
+            startService(intent);
+        }
     }
 
     public void myPause(View view){
         if(isRunning){
             isRunning = false;
-            pauseButton.setImageResource(R.drawable.play2);
+            pauseButton.setBackground(getDrawable(R.drawable.play3));
         }
         else{
             isRunning = true;
-            pauseButton.setImageResource(R.drawable.pause2);
+            pauseButton.setBackground(getDrawable(R.drawable.pause3));
         }
+        service();
+    }
+
+    public void mySound(View view){
+        if(isSound){
+            isSound = false;
+            soundButton.setBackground(getDrawable(R.drawable.mute2));
+        }
+        else{
+            isSound = true;
+            soundButton.setBackground(getDrawable(R.drawable.sound2));
+        }
+        service();
+    }
+
+    public void service(){
+        Intent intent = new Intent(this, SoundService.class);
+        intent.putExtra("isSound", isSound);
+        intent.setAction(PAUSE);
+        startService(intent);
     }
 
     @Override
@@ -105,6 +138,7 @@ public class IntervalTimerActivity extends AppCompatActivity {
         outState.putInt("cycles", numCycles);
         outState.putInt("seconds", seconds);
         outState.putBoolean("isRunning", isRunning);
+        outState.putBoolean("isSound,", isSound);
     }
 
 
